@@ -197,9 +197,17 @@
         <ul id="sidebarnav">
           
           <li class="sidebar-item">
-            <a class="sidebar-link" href="{{ route('products.dashboard') }}" aria-expanded="false">
+            <a class="sidebar-link" href="{{ route('dashboard') }}" aria-expanded="false">
               <span>
                 <i class="ti ti-aperture"></i>
+              </span>
+              <span class="hide-menu">Dashboard</span>
+            </a>
+          </li>
+          <li class="sidebar-item">
+            <a class="sidebar-link" href="{{ route('products.dashboard') }}" aria-expanded="false">
+              <span>
+                <i class="ti ti-file-text"></i>
               </span>
               <span class="hide-menu">Product</span>
             </a>

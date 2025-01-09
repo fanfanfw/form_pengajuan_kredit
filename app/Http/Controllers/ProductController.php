@@ -98,9 +98,9 @@ class ProductController extends Controller
     public function dashboard()
 {
 
-    if (!auth()->check()) {
-        dd('User not logged in');
-    }
+    // if (!auth()->check()) {
+    //     dd('User not logged in');
+    // }
 
     $user = auth()->user();
     $products = Product::all();

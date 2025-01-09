@@ -16,18 +16,25 @@
       <nav class="sidebar-nav scroll-sidebar" data-simplebar>
         <ul id="sidebarnav">
           <!-- ---------------------------------- -->
-          <!-- Dashboard -->
+          <!-- Dashboard Default-->
           <!-- ---------------------------------- -->
-          @if (Auth::check())
-              <li class="sidebar-item">
-                  <a class="sidebar-link" href="{{ route('products.dashboard') }}" id="get-url" aria-expanded="false">
-                      <span>
-                          <i class="ti ti-aperture"></i>
-                      </span>
-                      <span class="hide-menu">Product</span>
-                  </a>
-              </li>
-          @endif
+          <li class="sidebar-item">
+            <a class="sidebar-link" href="{{ route('dashboard') }}" aria-expanded="false">
+              <span>
+                <i class="ti ti-aperture"></i>
+              </span>
+              <span class="hide-menu">Dashboard</span>
+            </a>
+          </li>
+          <li class="sidebar-item">
+            <a class="sidebar-link" href="{{ route('products.dashboard') }}" aria-expanded="false">
+              <span>
+                <i class="ti ti-file-text"></i>
+              </span>
+              <span class="hide-menu">Product</span>
+            </a>
+          </li>
+
           <li class="sidebar-item">
             <a class="sidebar-link" href="{{ route('nasabah.dashboard') }}" aria-expanded="false">
               <span>
