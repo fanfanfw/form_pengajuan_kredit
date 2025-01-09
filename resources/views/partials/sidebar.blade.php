@@ -4,7 +4,7 @@
       <!-- Start Vertical Layout Sidebar -->
       <!-- ---------------------------------- -->
       <div class="brand-logo d-flex align-items-center justify-content-between">
-        <a href="../main/index.html" class="text-nowrap logo-img">
+        <a href="{{ route('dashboard') }}" class="text-nowrap logo-img">
           <img src="../assets/images/logos/dark-logo.svg" class="dark-logo" alt="Logo-Dark" />
           <img src="../assets/images/logos/light-logo.svg" class="light-logo" alt="Logo-light" />
         </a>
@@ -20,7 +20,7 @@
           <!-- ---------------------------------- -->
           @if (Auth::check())
               <li class="sidebar-item">
-                  <a class="sidebar-link" href="/" id="get-url" aria-expanded="false">
+                  <a class="sidebar-link" href="{{ route('products.dashboard') }}" id="get-url" aria-expanded="false">
                       <span>
                           <i class="ti ti-aperture"></i>
                       </span>
@@ -29,7 +29,7 @@
               </li>
           @endif
           <li class="sidebar-item">
-            <a class="sidebar-link" href="../main/app-contact2.html" aria-expanded="false">
+            <a class="sidebar-link" href="{{ route('nasabah.dashboard') }}" aria-expanded="false">
               <span>
                 <i class="ti ti-list-details"></i>
               </span>
@@ -37,7 +37,7 @@
             </a>
           </li>
           <li class="sidebar-item">
-            <a class="sidebar-link" href="../main/index3.html" aria-expanded="false">
+            <a class="sidebar-link" href="{{ route('pengajuan.dashboard') }}" aria-expanded="false">
               <span>
                 <i class="ti ti-currency-dollar"></i>
               </span>

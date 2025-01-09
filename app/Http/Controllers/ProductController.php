@@ -84,19 +84,34 @@ class ProductController extends Controller
         return response()->json(null, 204);
     }
 
-    public function dashboard()
-    {
-        if (!auth()->check()) {
-            dd('User not logged in');
-        }
+    // public function dashboard()
+    // {
+    //     if (!auth()->check()) {
+    //         dd('User not logged in');
+    //     }
         
-        $products = Product::all();
-        $user = auth()->user();
-        return view('dashboard', compact( 'products','user'));
+    //     $products = Product::all();
+    //     $user = auth()->user();
+    //     return view('dashboard', compact( 'products','user'));
+    // }
+
+    public function dashboard()
+{
+
+    if (!auth()->check()) {
+        dd('User not logged in');
     }
+
+    $user = auth()->user();
+    $products = Product::all();
+    return view('products.dashboard', compact('products', 'user'));
+}
+
     public function edit($id)
 {
     $product = Product::findOrFail($id);
     return view('products.edit', compact('product'));
 }
+
+
 }

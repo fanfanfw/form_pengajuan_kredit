@@ -14,7 +14,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($products as $index => $product)
+            @foreach($nasabah as $index => $product)
                 <tr>
                     <td>{{ $index + 1 }}</td>
                     <td>{{ $product->name }}</td>

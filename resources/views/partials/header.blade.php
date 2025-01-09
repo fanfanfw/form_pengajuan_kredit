@@ -13,7 +13,7 @@
         </ul>
 
         <div class="d-block d-lg-none py-4">
-          <a href="../main/index.html" class="text-nowrap logo-img">
+          <a href="{{ route('dashboard') }}" class="text-nowrap logo-img">
             <img src="../assets/images/logos/dark-logo.svg" class="dark-logo" alt="Logo-Dark" />
             <img src="../assets/images/logos/light-logo.svg" class="light-logo" alt="Logo-light" />
           </a>
@@ -109,7 +109,7 @@
             </a>
           </li>
           <li class="nav-item d-none d-xl-block">
-            <a href="../main/index.html" class="text-nowrap nav-link">
+            <a href="{{ route('dashboard') }}" class="text-nowrap nav-link">
               <img src="../assets/images/logos/dark-logo.svg" class="dark-logo" width="180" alt="modernize-img" />
               <img src="../assets/images/logos/light-logo.svg" class="light-logo" width="180" alt="modernize-img" />
             </a>
@@ -117,7 +117,7 @@
         </ul>
         
         <div class="d-block d-xl-none">
-          <a href="../main/index.html" class="text-nowrap nav-link">
+          <a href="{{ route('dashboard') }}" class="text-nowrap nav-link">
             <img src="../assets/images/logos/dark-logo.svg" width="180" alt="modernize-img" />
           </a>
         </div>
@@ -197,7 +197,7 @@
         <ul id="sidebarnav">
           
           <li class="sidebar-item">
-            <a class="sidebar-link" href="/" aria-expanded="false">
+            <a class="sidebar-link" href="{{ route('products.dashboard') }}" aria-expanded="false">
               <span>
                 <i class="ti ti-aperture"></i>
               </span>
@@ -205,7 +205,7 @@
             </a>
           </li>
           <li class="sidebar-item">
-            <a class="sidebar-link" href="../main/app-contact2.html" aria-expanded="false">
+            <a class="sidebar-link" href="{{ route('nasabah.dashboard') }}" aria-expanded="false">
               <span>
                 <i class="ti ti-list-details"></i>
               </span>
@@ -213,7 +213,7 @@
             </a>
           </li>
           <li class="sidebar-item">
-            <a class="sidebar-link" href="../main/index3.html" aria-expanded="false">
+            <a class="sidebar-link" href="{{ route('pengajuan.dashboard') }}" aria-expanded="false">
               <span>
                 <i class="ti ti-currency-dollar"></i>
               </span>

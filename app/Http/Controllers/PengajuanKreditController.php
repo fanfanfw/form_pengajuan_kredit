@@ -100,5 +100,12 @@ public function updateFrontend(Request $request, $id)
     return redirect()->route('daftar.pengajuan')->with('success', 'Pengajuan kredit berhasil diperbarui.');
 }
 
+public function dashboard()
+{
+    $pengajuan = PengajuanKredit::with(['nasabah', 'product'])->get();
+    return view('pengajuan.dashboard', compact('pengajuan'));
+}
+
+
 
 }

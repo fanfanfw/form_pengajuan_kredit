@@ -92,4 +92,14 @@ private function generateNoRegistrasi()
         Nasabah::destroy($id);
         return response()->json(null, 204);
     }
+    public function dashboard()
+{
+    if (!auth()->check()) {
+        dd('User not logged in');
+    }
+    $user = auth()->user();
+    $nasabah = Nasabah::all();
+    return view('nasabah.dashboard', compact('nasabah', 'user'));
+}
+
 }
