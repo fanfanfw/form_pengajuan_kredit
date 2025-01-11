@@ -55,8 +55,11 @@
                 </table>
               </div>
           </div>
-      </div>
-  </div>
+          <div class="d-flex justify-content-center">
+            {{ $products->links('vendor.pagination.default') }}
+        </div>
+        </div>
+</div>
   @include('products.create')
   @include('products.edit')
   <script>

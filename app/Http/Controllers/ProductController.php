@@ -70,7 +70,7 @@ public function destroy($id)
 {
 
     $user = auth()->user();
-    $products = Product::all();
+    $products = Product::orderBy('created_at', 'desc')->paginate(10);
     return view('products.dashboard', compact('products', 'user'));
 }
 
