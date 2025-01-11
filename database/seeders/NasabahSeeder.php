@@ -13,7 +13,7 @@ class NasabahSeeder extends Seeder
      */
     public function run(): void
     {
-        for ($i = 0; $i < 10; $i++) { // Misal kita buat 10 data
+        for ($i = 0; $i < 20; $i++) { // Misal kita buat 10 data
             Nasabah::create([
                 'nama' => 'Nasabah ' . $i,
                 'alamat' => 'Alamat ' . $i,
