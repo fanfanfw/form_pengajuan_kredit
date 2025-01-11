@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Nasabah;
-use Illuminate\Support\Facades\Log;
 
 class NasabahController extends Controller
 {
@@ -13,67 +12,43 @@ class NasabahController extends Controller
         return response()->json(Nasabah::all());
     }
 
-//     public function store(Request $request)
-// {
-//     Log::info('Request Data:', $request->all());
-    
-//     try {
-//         $request->validate([
-//             'nama' => 'required',
-//             'alamat' => 'required',
-//             'no_telepon' => 'required',
-//             'no_ktp' => 'required|unique:nasabah',
-//         ]);
-//         Log::info('Validation Passed');
-        
-//         $nasabah = Nasabah::create($request->all());
-//         Log::info('Nasabah Created:', $nasabah->toArray());
-        
-//         return response()->json($nasabah, 201);
-//     } catch (\Exception $e) {
-//         Log::error('Error Creating Nasabah:', ['error' => $e->getMessage()]);
-//         return response()->json(['error' => $e->getMessage()], 500);
-//     }
-// }
-
     public function create()
     {
-        return view('nasabah.registrasi');
+        return view('create');
     }
 
     public function store(Request $request)
-{
-    $request->validate([
-        'nama' => 'required|string|max:255',
-        'alamat' => 'required|string',
-        'no_telepon' => 'required|string',
-        'no_ktp' => 'required|string|unique:nasabah,no_ktp',
-    ]);
+    {
+        $request->validate([
+            'nama' => 'required|string|max:255',
+            'alamat' => 'required|string',
+            'no_telepon' => 'required|string',
+            'no_ktp' => 'required|string|unique:nasabah,no_ktp',
+        ]);
 
-    // Generate no_registrasi unik
-    $noRegistrasi = $this->generateNoRegistrasi();
+        // Generate no_registrasi unik
+        $noRegistrasi = $this->generateNoRegistrasi();
 
-    // Simpan data nasabah
-    Nasabah::create([
-        'no_registrasi' => $noRegistrasi,
-        'nama' => $request->nama,
-        'alamat' => $request->alamat,
-        'no_telepon' => $request->no_telepon,
-        'no_ktp' => $request->no_ktp,
-    ]);
+        // Simpan data nasabah
+        Nasabah::create([
+            'no_registrasi' => $noRegistrasi,
+            'nama' => $request->nama,
+            'alamat' => $request->alamat,
+            'no_telepon' => $request->no_telepon,
+            'no_ktp' => $request->no_ktp,
+        ]);
 
-    return redirect()->route('dashboard')->with('success', 'Nasabah berhasil didaftarkan.');
-}
+        return redirect()->route('nasabah.dashboard')->with('success', 'Nasabah berhasil didaftarkan.');
+    }
 
-private function generateNoRegistrasi()
-{
-    do {
-        $noRegistrasi = 'NR' . str_pad(rand(0, 999999), 6, '0', STR_PAD_LEFT);
-    } while (Nasabah::where('no_registrasi', $noRegistrasi)->exists());
+    private function generateNoRegistrasi()
+    {
+        do {
+            $noRegistrasi = 'NR' . str_pad(rand(0, 999999), 6, '0', STR_PAD_LEFT);
+        } while (Nasabah::where('no_registrasi', $noRegistrasi)->exists());
 
-    return $noRegistrasi;
-}
-
+        return $noRegistrasi;
+    }
 
     public function show($id)
     {
@@ -83,23 +58,43 @@ private function generateNoRegistrasi()
     public function update(Request $request, $id)
     {
         $nasabah = Nasabah::findOrFail($id);
-        $nasabah->update($request->all());
-        return response()->json($nasabah);
+
+        $request->validate([
+            'nama' => 'required|string|max:255',
+            'alamat' => 'required|string',
+            'no_telepon' => 'required|string',
+            'no_ktp' => 'required|string|unique:nasabah,no_ktp,' . $nasabah->id,
+        ]);
+
+        // Update data nasabah (no_registrasi tidak berubah)
+        $nasabah->update([
+            'nama' => $request->nama,
+            'alamat' => $request->alamat,
+            'no_telepon' => $request->no_telepon,
+            'no_ktp' => $request->no_ktp,
+        ]);
+
+        return redirect()->route('nasabah.dashboard')->with('success', 'Data Nasabah berhasil diperbarui!');
     }
 
     public function destroy($id)
     {
-        Nasabah::destroy($id);
-        return response()->json(null, 204);
-    }
-    public function dashboard()
-{
-    if (!auth()->check()) {
-        dd('User not logged in');
-    }
-    $user = auth()->user();
-    $nasabah = Nasabah::all();
-    return view('nasabah.dashboard', compact('nasabah', 'user'));
-}
+        $nasabah = Nasabah::findOrFail($id);
+        $nasabah->delete();
 
+        return redirect()->route('nasabah.dashboard')->with('success', 'Data Nasabah berhasil dihapus!');
+    }
+
+    public function dashboard()
+    {
+        $user = auth()->user();
+        $nasabahs = Nasabah::orderBy('created_at', 'desc')->get();
+        return view('nasabah.dashboard', compact('nasabahs', 'user'));
+    }
+
+    public function edit($id)
+    {
+        $nasabah = Nasabah::findOrFail($id);
+        return view('nasabah.edit', compact('nasabah'));
+    }
 }

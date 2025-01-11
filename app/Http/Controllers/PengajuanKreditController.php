@@ -102,8 +102,10 @@ public function updateFrontend(Request $request, $id)
 
 public function dashboard()
 {
+
+    $user = auth()->user();
     $pengajuan = PengajuanKredit::with(['nasabah', 'product'])->get();
-    return view('pengajuan.dashboard', compact('pengajuan'));
+    return view('pengajuan.dashboard', compact('pengajuan', 'user'));
 }
 
 

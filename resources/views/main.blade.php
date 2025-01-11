@@ -18,38 +18,26 @@
   <link rel="stylesheet" href="assets/libs/owl.carousel/dist/assets/owl.carousel.min.css" />
 
   <link rel="stylesheet" href="../assets/libs/sweetalert2/dist/sweetalert2.min.css">
+
+  <!-- DataTables CSS -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
+
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <style>
-    .pagination {
+ .dataTables_wrapper .top {
     display: flex;
-    justify-content: center;
-    list-style: none;
-    padding: 0;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px; /* Tambahkan jarak bawah */
 }
 
-.pagination li {
-    margin: 0 5px;
+.dataTables_wrapper .dataTables_length {
+    margin-right: 15px; /* Tambahkan jarak kanan */
 }
 
-.pagination li a,
-.pagination li span {
-    display: block;
-    padding: 8px 12px;
-    text-decoration: none;
-    color: #007bff;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
-
-.pagination li.active span {
-    background-color: #007bff;
-    color: white;
-    border-color: #007bff;
-}
-
-.pagination li.disabled span {
-    color: #ccc;
-    cursor: not-allowed;
+.dataTables_wrapper .dataTables_filter {
+    margin-left: 15px; /* Tambahkan jarak kiri */
 }
 
   </style>
@@ -253,6 +241,48 @@
             });
         @endif
     });
+</script>
+<!-- DataTables JS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+
+
+<script src="../assets/js/datatable/datatable-api.init.js"></script>
+<script src="../assets/js/datatable/datatable-basic.init.js"></script>
+<script src="../assets/js/datatable/datatable.init.js"></script>
+<script src="../assets/js/datatable/datatable-advanced.init.js"></script>
+
+<script>
+  $(document).ready(function() {
+      $('#myTable').DataTable({
+      responsive: true,
+      dom: '<"top"lBf>rt<"bottom"ip><"clear">', // Posisi dropdown dan tombol di atas
+      buttons: [
+          'copy', 'csv', 'excel', 'pdf', 'print'
+      ],
+      lengthMenu: [10, 25, 50, 100],
+      language: {
+          search: "Cari:",
+          lengthMenu: "Tampilkan _MENU_ data per halaman",
+          zeroRecords: "Tidak ada data ditemukan",
+          info: "Menampilkan _START_ hingga _END_ dari _TOTAL_ data",
+          infoEmpty: "Tidak ada data tersedia",
+          infoFiltered: "(disaring dari _MAX_ total data)",
+          paginate: {
+              first: "Pertama",
+              last: "Terakhir",
+              next: "Berikutnya",
+              previous: "Sebelumnya"
+          }
+      }
+  });
+});
 </script>
 </body>
 

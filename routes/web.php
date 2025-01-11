@@ -28,13 +28,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/products/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
 });
 
-// Nasabah
-Route::get('/nasabah', [NasabahController::class, 'dashboard'])->middleware('auth')->name('nasabah.dashboard');
-Route::get('/nasabah/create', [NasabahController::class, 'create'])->middleware('auth')->name('nasabah.create');
-Route::post('/nasabah/store', [NasabahController::class, 'store'])->middleware('auth')->name('nasabah.store');
-Route::get('/nasabah/{id}/edit', [NasabahController::class, 'edit'])->middleware('auth')->name('nasabah.edit');
-Route::post('/nasabah/{id}/update', [NasabahController::class, 'update'])->middleware('auth')->name('nasabah.update');
-Route::delete('/nasabah/{id}', [NasabahController::class, 'destroy'])->middleware('auth')->name('nasabah.destroy');
+Route::middleware('auth')->group(function () {
+    Route::get('/nasabah', [NasabahController::class, 'dashboard'])->name('nasabah.dashboard');
+    Route::get('/nasabah/create', [NasabahController::class, 'create'])->name('nasabah.create');
+    Route::post('/nasabah/store', [NasabahController::class, 'store'])->name('nasabah.store');
+    Route::get('/nasabah/{id}/edit', [NasabahController::class, 'edit'])->name('nasabah.edit');
+    Route::put('/nasabah/{id}/update', [NasabahController::class, 'update'])->name('nasabah.update');
+    Route::delete('/nasabah/{id}', [NasabahController::class, 'destroy'])->name('nasabah.destroy');
+});
 
 // Pengajuan Kredit
 Route::get('/pengajuan', [PengajuanKreditController::class, 'dashboard'])->middleware('auth')->name('pengajuan.dashboard');
