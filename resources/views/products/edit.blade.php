@@ -11,7 +11,7 @@
 
             <form action="{{ route('products.update', $product->id) }}" method="POST">
                 @csrf
-                @method('PUT') <!-- Penting untuk mendefinisikan metode PUT -->
+                @method('PUT')
                     <div class="mb-3">
                         <label for="name-{{ $product->id }}" class="form-label">Name</label>
                         <input type="text" name="name" class="form-control" id="name-{{ $product->id }}" value="{{ $product->name }}" required>

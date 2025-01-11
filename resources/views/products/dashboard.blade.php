@@ -11,48 +11,42 @@
             </div>
             <div class="card-body p-4">
             <div class="table-responsive mb-4 border rounded-1">
-                <table class="table text-nowrap mb-0 align-middle">
-                  <thead class="text-dark fs-4">
+              <table class="table text-nowrap mb-0 align-middle">
+                <thead class="text-dark fs-4">
                     <tr>
-                      <th>
-                        <h6 class="fs-4 fw-semibold mb-0">#</h6>
-                      </th>
-                      <th>
-                        <h6 class="fs-4 fw-semibold mb-0">Category</h6>
-                      </th>
-                      <th>
-                        <h6 class="fs-4 fw-semibold mb-0">Name</h6>
-                      </th>
-                      <th>
-                        <h6 class="fs-4 fw-semibold mb-0">Description</h6>
-                      </th>
-                      <th>
-                        <h6 class="fs-4 fw-semibold mb-0">Aksi</h6>
-                      </th>
+                        <th>#</th>
+                        <th>Category</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Aksi</th>
                     </tr>
-                  </thead>
-                  <tbody>
+                </thead>
+                <tbody>
                     @foreach ($products as $product)
                     <tr>
-                      <td>{{ $loop->iteration }}</td>
-                      <td>ss</td>
-                      <td>{{ $product->name }}</td>
-                      <td>{{ $product->description }}</td>
-                      <td>
-                        <button class="btn bg-warning-subtle text-warning" 
-                        data-bs-toggle="modal" 
-                        data-bs-target="#edit-modal-{{ $product->id }}">
-                        <i class="fs-4 ti ti-edit"></i>Ubah</button>
-                      <form id="delete-form-{{ $product->id }}" action="{{ route('products.destroy', $product->id) }}" method="POST" style="display: inline;">
-                        @csrf
-                        @method('DELETE')
-                        <button class="btn bg-danger-subtle text-danger" onclick="confirmDelete({{ $product->id }})"><i class="fs-4 ti ti-trash"></i>Hapus</button>
-                      </form>
-                      </td>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>ss</td>
+                        <td>{{ $product->name }}</td>
+                        <td>{{ $product->description }}</td>
+                        <td>
+                            <button class="btn bg-warning-subtle text-warning" 
+                                data-bs-toggle="modal" 
+                                data-bs-target="#edit-modal-{{ $product->id }}">
+                                <i class="fs-4 ti ti-edit"></i>Ubah
+                            </button>
+                            <form id="delete-form-{{ $product->id }}" action="{{ route('products.destroy', $product->id) }}" method="POST" style="display: inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn bg-danger-subtle text-danger" onclick="confirmDelete({{ $product->id }})">
+                                    <i class="fs-4 ti ti-trash"></i>Hapus
+                                </button>
+                            </form>
+                        </td>
                     </tr>
                     @endforeach
-                  </tbody>
-                </table>
+                </tbody>
+            </table>
+            
               </div>
           </div>
           <div class="d-flex justify-content-center">
@@ -80,5 +74,6 @@
         });
     }
 </script>
+
 @endsection
 
