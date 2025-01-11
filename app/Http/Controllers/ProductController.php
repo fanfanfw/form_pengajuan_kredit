@@ -16,32 +16,24 @@ class ProductController extends Controller
     }
 
     public function create()
-{
-    return view('products.create');
-}
-
-    public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi gambar
-        ]);
-
-        $imagePath = null;
-
-        if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('products', 'public'); // Simpan ke folder 'storage/app/public/products'
-        }
-
-        Product::create([
-            'name' => $request->name,
-            'description' => $request->description,
-            'image' => $imagePath,
-        ]);
-
-        return redirect()->route('products.index')->with('success', 'Product created successfully.');
+        return view('create');
     }
+
+public function store(Request $request)
+{
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'description' => 'nullable|string',
+    ]);
+
+    Product::create([
+        'name' => $request->name,
+        'description' => $request->description,
+    ]);
+
+    return redirect()->route('products.dashboard')->with('success', 'Produk berhasil ditambahkan!');
+}
 
     public function show($id)
     {
@@ -50,57 +42,32 @@ class ProductController extends Controller
 
     public function update(Request $request, $id)
     {
-        $product = Product::findOrFail($id);
-
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        $imagePath = $product->image;
-
-        if ($request->hasFile('image')) {
-            // Hapus gambar lama jika ada
-            if ($product->image) {
-                Storage::disk('public')->delete($product->image);
-            }
-
-            $imagePath = $request->file('image')->store('products', 'public');
-        }
-
+        $product = Product::findOrFail($id);
         $product->update([
             'name' => $request->name,
             'description' => $request->description,
-            'image' => $imagePath,
         ]);
 
-        return redirect()->route('products.index')->with('success', 'Product updated successfully.');
+        return redirect()->route('products.dashboard')->with('success', 'Produk berhasil diperbarui!');
     }
 
-    public function destroy($id)
-    {
-        Product::destroy($id);
-        return response()->json(null, 204);
-    }
+public function destroy($id)
+{
+    $product = Product::findOrFail($id);
+    $product->delete();
 
-    // public function dashboard()
-    // {
-    //     if (!auth()->check()) {
-    //         dd('User not logged in');
-    //     }
-        
-    //     $products = Product::all();
-    //     $user = auth()->user();
-    //     return view('dashboard', compact( 'products','user'));
-    // }
+    return redirect()->route('products.dashboard')->with('success', 'Produk berhasil dihapus!');
+}
+
+
 
     public function dashboard()
 {
-
-    // if (!auth()->check()) {
-    //     dd('User not logged in');
-    // }
 
     $user = auth()->user();
     $products = Product::all();

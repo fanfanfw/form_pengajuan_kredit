@@ -16,6 +16,9 @@
   <title>Dashboard | Pengajuan Kredit</title>
   <!-- Owl Carousel  -->
   <link rel="stylesheet" href="assets/libs/owl.carousel/dist/assets/owl.carousel.min.css" />
+
+  <link rel="stylesheet" href="../assets/libs/sweetalert2/dist/sweetalert2.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -203,6 +206,20 @@
   <script src="../assets/libs/owl.carousel/dist/owl.carousel.min.js"></script>
   <script src="../assets/libs/apexcharts/dist/apexcharts.min.js"></script>
   <script src="../assets/js/dashboards/dashboard.js"></script>
+  <script src="../assets/libs/sweetalert2/dist/sweetalert2.min.js"></script>
+  <script src="../assets/js/forms/sweet-alert.init.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        @if(session('success'))
+            Swal.fire({
+                title: "Berhasil!",
+                text: "{{ session('success') }}",
+                icon: "success",
+                confirmButtonText: "OK"
+            });
+        @endif
+    });
+</script>
 </body>
 
 </html>

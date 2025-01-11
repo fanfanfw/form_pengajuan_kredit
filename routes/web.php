@@ -19,13 +19,14 @@ Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-// Product
-Route::get('/products', [ProductController::class, 'dashboard'])->middleware('auth')->name('products.dashboard');
-Route::get('/products/create', [ProductController::class, 'create'])->middleware('auth')->name('products.create');
-Route::post('/products/store', [ProductController::class, 'store'])->middleware('auth')->name('products.store');
-Route::get('/products/{id}/edit', [ProductController::class, 'edit'])->middleware('auth')->name('products.edit');
-Route::post('/products/{id}/update', [ProductController::class, 'update'])->middleware('auth')->name('products.update');
-Route::delete('/products/{id}', [ProductController::class, 'destroy'])->middleware('auth')->name('products.destroy');
+Route::middleware('auth')->group(function () {
+    Route::get('/products', [ProductController::class, 'dashboard'])->name('products.dashboard');
+    Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
+    Route::post('/products/store', [ProductController::class, 'store'])->name('products.store');
+    Route::get('/products/{id}/edit', [ProductController::class, 'edit'])->name('products.edit');
+    Route::put('/products/{id}/update', [ProductController::class, 'update'])->name('products.update');
+    Route::delete('/products/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
+});
 
 // Nasabah
 Route::get('/nasabah', [NasabahController::class, 'dashboard'])->middleware('auth')->name('nasabah.dashboard');
