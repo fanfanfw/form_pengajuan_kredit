@@ -13,12 +13,16 @@
                 @csrf
                 @method('PUT')
                     <div class="mb-3">
-                        <label for="name-{{ $product->id }}" class="form-label">Name</label>
+                        <label for="name-{{ $product->id }}" class="form-label">Nama Produk</label>
                         <input type="text" name="name" class="form-control" id="name-{{ $product->id }}" value="{{ $product->name }}" required>
                     </div>
                     <div class="mb-3">
-                        <label for="description-{{ $product->id }}" class="form-label">Description</label>
+                        <label for="description-{{ $product->id }}" class="form-label">Deskripsi</label>
                         <textarea name="description" class="form-control" id="description-{{ $product->id }}" rows="3" required>{{ $product->description }}</textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="kategori" class="form-label">Kategori</label>
+                        <input type="text" name="kategori" class="form-control" id="kategori" placeholder="Masukkan kategori produk" required>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>

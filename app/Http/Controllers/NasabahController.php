@@ -14,7 +14,7 @@ class NasabahController extends Controller
 
     public function create()
     {
-        return view('create');
+        return view('nasabah.create');
     }
 
     public function store(Request $request)
@@ -80,15 +80,24 @@ class NasabahController extends Controller
     public function destroy($id)
     {
         $nasabah = Nasabah::findOrFail($id);
+    
+        // Cek apakah nasabah memiliki relasi dengan pengajuan kredit
+        if ($nasabah->pengajuanKredit()->exists()) {
+            return redirect()->route('nasabah.dashboard')->with('error', 'Data nasabah tidak dapat dihapus karena memiliki pengajuan kredit yang terkait.');
+        }
+    
         $nasabah->delete();
-
-        return redirect()->route('nasabah.dashboard')->with('success', 'Data Nasabah berhasil dihapus!');
+    
+        return redirect()->route('nasabah.dashboard')->with('success', 'Data nasabah berhasil dihapus.');
     }
 
     public function dashboard()
     {
         $user = auth()->user();
-        $nasabahs = Nasabah::orderBy('created_at', 'desc')->get();
+        
+        // Mengambil nasabah beserta jumlah pengajuan kredit
+        $nasabahs = Nasabah::withCount('pengajuanKredit')->orderBy('created_at', 'desc')->get();
+        
         return view('nasabah.dashboard', compact('nasabahs', 'user'));
     }
 

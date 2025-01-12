@@ -14,8 +14,8 @@
 
         <div class="d-block d-lg-none py-4">
           <a href="{{ route('dashboard') }}" class="text-nowrap logo-img">
-            <img src="../assets/images/logos/dark-logo.svg" class="dark-logo" alt="Logo-Dark" />
-            <img src="../assets/images/logos/light-logo.svg" class="light-logo" alt="Logo-light" />
+            <img src="{{ asset('assets/images/logos/dark-logo.svg') }}" class="dark-logo" alt="Logo-Dark" />
+            <img src="{{ asset('assets/images/logos/light-logo.svg') }}" class="light-logo" alt="Logo-light" />
           </a>
         </div>
         <a class="navbar-toggler nav-icon-hover-bg rounded-circle p-0 mx-0 border-0" href="javascript:void(0)" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,7 +43,7 @@
                 <a class="nav-link pe-0" href="javascript:void(0)" id="drop1" aria-expanded="false">
                   <div class="d-flex align-items-center">
                     <div class="user-profile-img">
-                      <img src="../assets/images/profile/user-1.jpg" class="rounded-circle" width="35" height="35" alt="modernize-img" />
+                      <img src="{{ asset('assets/images/profile/user-1.jpg') }}" class="rounded-circle" width="35" height="35" alt="modernize-img" />
                     </div>
                   </div>
                 </a>
@@ -53,7 +53,7 @@
                       <h5 class="mb-0 fs-5 fw-semibold">User Profile</h5>
                     </div>
                     <div class="d-flex align-items-center py-9 mx-7 border-bottom">
-                      <img src="../assets/images/profile/user-1.jpg" class="rounded-circle" width="80" height="80" alt="modernize-img" />
+                      <img src="{{ asset('assets/images/profile/user-1.jpg') }}" class="rounded-circle" width="80" height="80" alt="modernize-img" />
                       <div class="ms-3">
                         <h5 class="mb-1 fs-3">{{ $user->name }}</h5>
                         <span class="mb-1 d-block">{{ $user->role }}</span>
@@ -92,7 +92,7 @@
       <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="mobilenavbar" aria-labelledby="offcanvasWithBothOptionsLabel">
         <nav class="sidebar-nav scroll-sidebar">
           <div class="offcanvas-header justify-content-between">
-            <img src="../assets/images/logos/favicon.ico" alt="modernize-img" class="img-fluid" />
+            <img src="{{ asset('assets/images/logos/favicon.ico') }}" alt="modernize-img" class="img-fluid" />
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
           </div>
           <div class="offcanvas-body h-n80" data-simplebar="" data-simplebar>
@@ -110,8 +110,8 @@
           </li>
           <li class="nav-item d-none d-xl-block">
             <a href="{{ route('dashboard') }}" class="text-nowrap nav-link">
-              <img src="../assets/images/logos/dark-logo.svg" class="dark-logo" width="180" alt="modernize-img" />
-              <img src="../assets/images/logos/light-logo.svg" class="light-logo" width="180" alt="modernize-img" />
+              <img src="{{ asset('assets/images/logos/dark-logo.svg') }}" class="dark-logo" width="180" alt="modernize-img" />
+              <img src="{{ asset('assets/images/logos/light-logo.svg') }}" class="light-logo" width="180" alt="modernize-img" />
             </a>
           </li>
         </ul>
@@ -149,7 +149,7 @@
                 <a class="nav-link pe-0" href="javascript:void(0)" id="drop1" aria-expanded="false">
                   <div class="d-flex align-items-center">
                     <div class="user-profile-img">
-                      <img src="../assets/images/profile/user-1.jpg" class="rounded-circle" width="35" height="35" alt="modernize-img" />
+                      <img src="{{ asset('assets/images/profile/user-1.jpg') }}" class="rounded-circle" width="35" height="35" alt="modernize-img" />
                     </div>
                   </div>
                 </a>
@@ -159,7 +159,7 @@
                       <h5 class="mb-0 fs-5 fw-semibold">User Profile</h5>
                     </div>
                     <div class="d-flex align-items-center py-9 mx-7 border-bottom">
-                      <img src="../assets/images/profile/user-1.jpg" class="rounded-circle" width="80" height="80" alt="modernize-img" />
+                      <img src="{{ asset('assets/images/profile/user-1.jpg') }}" class="rounded-circle" width="80" height="80" alt="modernize-img" />
                       <div class="ms-3">
                         <h5 class="mb-1 fs-3">{{ $user->name }}</h5>
                         <span class="mb-1 d-block">{{ $user->role }}</span>

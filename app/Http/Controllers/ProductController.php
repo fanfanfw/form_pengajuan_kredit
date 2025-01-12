@@ -25,11 +25,13 @@ public function store(Request $request)
     $request->validate([
         'name' => 'required|string|max:255',
         'description' => 'nullable|string',
+        'kategori' => 'required|string|max:255'
     ]);
 
     Product::create([
         'name' => $request->name,
         'description' => $request->description,
+        'kategori' => $request->kategori
     ]);
 
     return redirect()->route('products.dashboard')->with('success', 'Produk berhasil ditambahkan!');
@@ -45,12 +47,14 @@ public function store(Request $request)
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
+            'kategori' => 'required|string|max:255'
         ]);
 
         $product = Product::findOrFail($id);
         $product->update([
             'name' => $request->name,
             'description' => $request->description,
+            'kategori' => $request->kategori
         ]);
 
         return redirect()->route('products.dashboard')->with('success', 'Produk berhasil diperbarui!');

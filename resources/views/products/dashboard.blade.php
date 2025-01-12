@@ -15,9 +15,9 @@
                 <thead class="text-dark fs-4">
                     <tr>
                         <th>#</th>
-                        <th>Category</th>
-                        <th>Name</th>
-                        <th>Description</th>
+                        <th>Kategori</th>
+                        <th>Nama</th>
+                        <th>Deskripsi</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -25,7 +25,7 @@
                     @foreach ($products as $product)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td>ss</td>
+                        <td>{{ $product->kategori }}</td>
                         <td>{{ $product->name }}</td>
                         <td>{{ $product->description }}</td>
                         <td>

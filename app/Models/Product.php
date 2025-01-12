@@ -9,10 +9,12 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'description', 'image'];
-    // Relasi: Product -> Pengajuan Kredit
+    protected $fillable = ['name', 'description', 'kategori'];
+    protected $table = 'products';
+
     public function pengajuanKredit()
-    {
-        return $this->hasMany(PengajuanKredit::class);
-    }
+{
+    return $this->hasMany(PengajuanKredit::class, 'product_id');
+}
+
 }

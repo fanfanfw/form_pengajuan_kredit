@@ -22,7 +22,6 @@ return new class extends Migration
             $table->decimal('jumlah_pengajuan', 15, 2);
             $table->decimal('jumlah_acc', 15, 2)->nullable();
             $table->string('status')->default('pending'); 
-            $table->text('persetujuan')->nullable();
             $table->timestamps();
         });
     }

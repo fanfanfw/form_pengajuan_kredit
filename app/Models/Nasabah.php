@@ -10,11 +10,11 @@ class Nasabah extends Model
     use HasFactory;
 
     protected $table = 'nasabah';
-    protected $fillable = ['no_registrasi', 'nama', 'alamat', 'no_telepon', 'no_ktp', 'image'];
+    protected $fillable = ['no_registrasi', 'nama', 'alamat', 'no_telepon', 'no_ktp'];
 
     // Relasi: Nasabah -> Pengajuan Kredit
     public function pengajuanKredit()
     {
-        return $this->hasMany(PengajuanKredit::class);
+        return $this->hasMany(PengajuanKredit::class, 'nasabah_id');
     }
 }

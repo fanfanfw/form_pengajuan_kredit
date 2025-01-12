@@ -7,7 +7,7 @@
             <div class="px-4 py-3 border-bottom">
               <h4 class="card-title mb-0">Nasabah Table</h4>
               <br>
-              <button type="button" class="btn bg-success-subtle text-success" data-bs-toggle="modal" data-bs-target="#registrasi-nasabah">Tambahkan Data</button>
+              <button type="button" class="btn bg-success-subtle text-success" data-bs-toggle="modal" data-bs-target="#registrasi-nasabah">Registrasi Nasabah</button>
             </div>
             <div class="card-body">
             <div class="table-responsive mb-4 border rounded-1">
@@ -33,8 +33,14 @@
                         <h6 class="fs-4 fw-semibold mb-0">No. Telepon</h6>
                       </th>
                       <th>
+                        <h6 class="fs-4 fw-semibold mb-0">Jumlah Pengajuan Kredit</h6>
+                      </th>
+                      <th>
                         <h6 class="fs-4 fw-semibold mb-0">Aksi</h6>
                       </th>
+                      <th>
+                        <h6 class="fs-4 fw-semibold mb-0">Pengajuan Kredit</h6>
+                    </th>
                     </tr>
                   </thead>
                   <tbody>
@@ -46,17 +52,31 @@
                      <td>{{ $nasabah->nama }}</td>
                      <td>{{ $nasabah->alamat }}</td>
                      <td>{{ $nasabah->no_telepon }}</td>
+                     <td>{{ $nasabah->pengajuan_kredit_count }}</td>
                       <td>
                         <button class="btn bg-warning-subtle text-warning" 
                         data-bs-toggle="modal" 
                         data-bs-target="#edit-modal-{{ $nasabah->id }}">
                         <i class="fs-4 ti ti-edit"></i>Ubah</button>
-                      <form id="delete-form-{{ $nasabah->id }}" action="{{ route('nasabah.destroy', $nasabah->id) }}" method="POST" style="display: inline;">
-                        @csrf
-                        @method('DELETE')
-                        <button class="btn bg-danger-subtle text-danger" onclick="confirmDelete({{ $nasabah->id }})"><i class="fs-4 ti ti-trash"></i>Hapus</button>
-                      </form>
+                        @if (!$nasabah->pengajuanKredit()->exists())
+                        <form id="delete-form-{{ $nasabah->id }}" action="{{ route('nasabah.destroy', $nasabah->id) }}" method="POST" style="display: inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn bg-danger-subtle text-danger" onclick="confirmDelete({{ $nasabah->id }})">
+                                <i class="fs-4 ti ti-trash"></i> Hapus
+                            </button>
+                        </form>
+                    @else
+                        <button class="btn bg-secondary-subtle text-secondary" disabled>
+                            Tidak Bisa Dihapus
+                        </button>
+                    @endif                    
                       </td>
+                      <td>
+                        <a href="{{ route('pengajuan.createWithNasabah', $nasabah->id) }}" class="btn btn-primary btn-sm">
+                            Buat Pengajuan Kredit
+                        </a>
+                    </td>                                    
                     </tr>
                     @endforeach
                   </tbody>
@@ -68,7 +88,11 @@
   @include('nasabah.create')
   @include('nasabah.edit')
 
-
+  @if(session('error'))
+  <div class="alert alert-danger">
+      {{ session('error') }}
+  </div>
+@endif
   <script>
     function confirmDelete(nasabahId) {
         event.preventDefault(); // Mencegah form langsung dikirim

@@ -1,40 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Pengajuan Kredit</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-    <div class="container mt-5">
-        <h1>Edit Pengajuan Kredit</h1>
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
+@foreach($pengajuans as $pengajuan)
+<div class="modal fade" id="edit-modal-{{ $pengajuan->id }}" tabindex="-1" aria-labelledby="editModalLabel{{ $pengajuan->id }}" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header d-flex align-items-center">
+                <h4 class="modal-title" id="editModalLabel{{ $pengajuan->id }}">Edit Pengajuan Kredit</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-        @endif
-
-        <form action="{{ route('pengajuan.update', $pengajuan->id) }}" method="POST">
-            @csrf
-            <div class="mb-3">
-                <label for="status" class="form-label">Status</label>
-                <select name="status" id="status" class="form-control" required>
-                    <option value="pending" {{ $pengajuan->status == 'pending' ? 'selected' : '' }}>Pending</option>
-                    <option value="approved" {{ $pengajuan->status == 'approved' ? 'selected' : '' }}>Approved</option>
-                    <option value="rejected" {{ $pengajuan->status == 'rejected' ? 'selected' : '' }}>Rejected</option>
-                </select>
+            <div class="modal-body">
+                <form action="{{ route('pengajuan.update', $pengajuan->id) }}" method="POST">
+                    @csrf
+                    @method('PUT')
+                    <div class="mb-3">
+                        <label for="tanggal_pengajuan" class="form-label">Tanggal Pengajuan</label>
+                        <input type="date" name="tanggal_pengajuan" class="form-control" id="tanggal_pengajuan-{{ $pengajuan->id }}" value="{{ $pengajuan->tanggal_pengajuan }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="product_id" class="form-label">Produk</label>
+                        <select name="product_id" id="product_id-{{ $pengajuan->id }}" class="form-control" required>
+                            @foreach($products as $product)
+                                <option value="{{ $product->id }}" @if($product->id == $pengajuan->product_id) selected @endif>{{ $product->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="jaminan" class="form-label">Jaminan</label>
+                        <input type="text" name="jaminan" class="form-control" id="jaminan-{{ $pengajuan->id }}" value="{{ $pengajuan->jaminan }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="jumlah_pengajuan" class="form-label">Jumlah Pengajuan</label>
+                        <input type="text" name="jumlah_pengajuan" class="form-control jumlah_pengajuan" id="jumlah_pengajuan-{{ $pengajuan->id }}" value="{{ number_format($pengajuan->jumlah_pengajuan, 0, ',', '.') }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="jumlah_acc" class="form-label">Jumlah Disetujui</label>
+                        <input type="text" name="jumlah_acc" class="form-control jumlah_acc" id="jumlah_acc-{{ $pengajuan->id }}" value="{{ number_format($pengajuan->jumlah_acc, 0, ',', '.') }}" readonly>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                </form>
             </div>
-            <div class="mb-3">
-                <label for="persetujuan" class="form-label">Catatan Persetujuan</label>
-                <textarea name="persetujuan" id="persetujuan" class="form-control" rows="3">{{ $pengajuan->persetujuan }}</textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Update</button>
-        </form>
+        </div>
     </div>
-</body>
-</html>
+</div>
+@endforeach

@@ -8,22 +8,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- Favicon icon-->
-  <link rel="shortcut icon" type="image/png" href="../assets/images/logos/favicon.png" />
-
+  <link rel="shortcut icon" type="image/png" href="{{ asset('assets/images/logos/favicon.png') }}" />
   <!-- Core Css -->
-  <link rel="stylesheet" href="assets/css/styles.css" />
-
-  <title>Dashboard | Pengajuan Kredit</title>
+  <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}" />
   <!-- Owl Carousel  -->
-  <link rel="stylesheet" href="assets/libs/owl.carousel/dist/assets/owl.carousel.min.css" />
+  <link rel="stylesheet" href="{{ asset('assets/libs/owl.carousel/dist/assets/owl.carousel.min.css') }}" />
 
-  <link rel="stylesheet" href="../assets/libs/sweetalert2/dist/sweetalert2.min.css">
+  <link rel="stylesheet" href="{{ asset('assets/libs/sweetalert2/dist/sweetalert2.min.css') }}">
 
   <!-- DataTables CSS -->
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
 
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <title>Dashboard | Pengajuan Kredit</title>
   <style>
  .dataTables_wrapper .top {
     display: flex;
@@ -46,7 +44,7 @@
 <body>
   <!-- Preloader -->
   <div class="preloader">
-    <img src="assets/images/logos/favicon.png" alt="loader" class="lds-ripple img-fluid" />
+    <img src="{{ asset('assets/images/logos/favicon.png') }}" alt="loader" class="lds-ripple img-fluid" />
   </div>
   <div id="main-wrapper">
 
@@ -214,22 +212,26 @@
     </div>
   </div>
   <div class="dark-transparent sidebartoggler"></div>
-  <script src="../assets/js/vendor.min.js"></script>
+  <script src="{{ asset('assets/js/vendor.min.js') }}"></script>
   <!-- Import Js Files -->
-  <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="../assets/libs/simplebar/dist/simplebar.min.js"></script>
-  <script src="../assets/js/theme/app.init.js"></script>
-  <script src="../assets/js/theme/theme.js"></script>
-  <script src="../assets/js/theme/app.min.js"></script>
-  <script src="../assets/js/theme/sidebarmenu.js"></script>
+  <script src="{{ asset('assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ asset('assets/libs/simplebar/dist/simplebar.min.js') }}"></script>
+  <script src="{{ asset('assets/js/theme/app.init.js') }}"></script>
+  <script src="{{ asset('assets/js/theme/theme.js') }}"></script>
+  <script src="{{ asset('assets/js/theme/app.min.js') }}"></script>
+  <script src="{{ asset('assets/js/theme/sidebarmenu.js') }}"></script>
+  <script src="{{ asset('assets/js/theme/app.minisidebar.init.js') }}"></script>
 
   <!-- solar icons -->
   <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
-  <script src="../assets/libs/owl.carousel/dist/owl.carousel.min.js"></script>
-  <script src="../assets/libs/apexcharts/dist/apexcharts.min.js"></script>
-  <script src="../assets/js/dashboards/dashboard.js"></script>
-  <script src="../assets/libs/sweetalert2/dist/sweetalert2.min.js"></script>
-  <script src="../assets/js/forms/sweet-alert.init.js"></script>
+  <script src="{{ asset('assets/libs/owl.carousel/dist/owl.carousel.min.js') }}"></script>
+  <script src="{{ asset('assets/libs/apexcharts/dist/apexcharts.min.js') }}"></script>
+  <script src="{{ asset('assets/js/dashboards/dashboard.js') }}"></script>
+  <script src="{{ asset('assets/libs/sweetalert2/dist/sweetalert2.min.js') }}"></script>
+  <script src="{{ asset('assets/js/forms/sweet-alert.init.js') }}"></script>
+  <script src="{{ asset('assets/js/forms/custom-validation-init.js') }}"></script>
+  <script src="{{ asset('assets/js/extra-libs/jqbootstrapvalidation/validation.js') }}"></script>
+
   <script>
     document.addEventListener("DOMContentLoaded", function () {
         @if(session('success'))
@@ -253,10 +255,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
 
 
-<script src="../assets/js/datatable/datatable-api.init.js"></script>
-<script src="../assets/js/datatable/datatable-basic.init.js"></script>
-<script src="../assets/js/datatable/datatable.init.js"></script>
-<script src="../assets/js/datatable/datatable-advanced.init.js"></script>
+<script src="{{ asset('assets/js/datatable/datatable-api.init.js') }}"></script>
+<script src="{{ asset('assets/js/datatable/datatable-basic.init.js') }}"></script>
+<script src="{{ asset('assets/js/datatable/datatable.init.js') }}"></script>
+<script src="{{ asset('assets/js/datatable/datatable-advanced.init.js') }}"></script>
+<script src="{{ asset('assets/js/plugins/bootstrap-validation-init.js') }}"></script>
+
 
 <script>
   $(document).ready(function() {
@@ -283,6 +287,24 @@
       }
   });
 });
+</script>
+<script>
+  document.querySelectorAll('.jumlah_pengajuan').forEach((input) => {
+      input.addEventListener('input', function () {
+          const formattedValue = this.value.replace(/\./g, '').replace(/\D/g, '');
+          const parsedValue = parseInt(formattedValue || 0);
+          const materai = 10000;
+          const asuransi = parsedValue * 0.01;
+          const jumlahDisetujui = Math.max(parsedValue - materai - asuransi, 0);
+
+          // Format input kembali dengan titik
+          this.value = new Intl.NumberFormat('id-ID').format(parsedValue);
+
+          // Update jumlah_acc yang sesuai
+          const jumlahAccInput = this.closest('.modal-body').querySelector('.jumlah_acc');
+          jumlahAccInput.value = new Intl.NumberFormat('id-ID').format(jumlahDisetujui);
+      });
+  });
 </script>
 </body>
 

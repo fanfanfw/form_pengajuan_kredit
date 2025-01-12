@@ -37,10 +37,12 @@ Route::middleware('auth')->group(function () {
     Route::delete('/nasabah/{id}', [NasabahController::class, 'destroy'])->name('nasabah.destroy');
 });
 
-// Pengajuan Kredit
-Route::get('/pengajuan', [PengajuanKreditController::class, 'dashboard'])->middleware('auth')->name('pengajuan.dashboard');
-Route::get('/pengajuan/create', [PengajuanKreditController::class, 'create'])->middleware('auth')->name('pengajuan.create');
-Route::post('/pengajuan/store', [PengajuanKreditController::class, 'store'])->middleware('auth')->name('pengajuan.store');
-Route::get('/pengajuan/{id}/edit', [PengajuanKreditController::class, 'edit'])->middleware('auth')->name('pengajuan.edit');
-Route::post('/pengajuan/{id}/update', [PengajuanKreditController::class, 'update'])->middleware('auth')->name('pengajuan.update');
-Route::delete('/pengajuan/{id}', [PengajuanKreditController::class, 'destroy'])->middleware('auth')->name('pengajuan.destroy');
+Route::middleware('auth')->group(function () {
+    Route::get('/pengajuan', [PengajuanKreditController::class, 'dashboard'])->name('pengajuan.dashboard');
+    Route::get('/pengajuan/create/{nasabah_id}', [PengajuanKreditController::class, 'createWithNasabah'])->name('pengajuan.createWithNasabah');
+    Route::post('/pengajuan/store', [PengajuanKreditController::class, 'store'])->name('pengajuan.store');
+    Route::get('/pengajuan/{id}/edit', [PengajuanKreditController::class, 'edit'])->name('pengajuan.edit');
+    Route::put('/pengajuan/{id}/', [PengajuanKreditController::class, 'update'])->name('pengajuan.update');
+    Route::delete('/pengajuan/{id}', [PengajuanKreditController::class, 'destroy'])->name('pengajuan.destroy');
+    Route::put('/pengajuan/{id}/update-status', [PengajuanKreditController::class, 'updateStatus'])->name('pengajuan.updateStatus');
+});

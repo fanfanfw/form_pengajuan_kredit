@@ -6,14 +6,23 @@ use Illuminate\Http\Request;
 use App\Models\PengajuanKredit;
 use App\Models\Nasabah;
 use App\Models\Product;
-use Illuminate\Support\Facades\Log;
+use App\Models\User;
 
 class PengajuanKreditController extends Controller
 {
-    //
-    public function index()
+    public function dashboard()
     {
-        return response()->json(PengajuanKredit::with(['nasabah', 'product'])->get());
+        $products = Product::all();
+        $user = auth()->user();
+        $pengajuans = PengajuanKredit::with(['nasabah', 'product'])->latest()->orderBy('created_at','desc')->get();
+        return view('pengajuan.dashboard', compact('pengajuans', 'user', 'products'));
+    }
+
+    public function create()
+    {
+        $nasabahs = Nasabah::all();
+        $products = Product::all();
+        return view('pengajuan.create', compact('nasabahs', 'products'));
     }
 
     public function store(Request $request)
@@ -22,92 +31,102 @@ class PengajuanKreditController extends Controller
         'nasabah_id' => 'required|exists:nasabah,id',
         'product_id' => 'required|exists:products,id',
         'tanggal_pengajuan' => 'required|date',
-        'jaminan' => 'required|string',
-        'jumlah_pengajuan' => 'required|numeric|min:0',
+        'jaminan' => 'required|string|max:255',
+        'jumlah_pengajuan' => 'required|string|min:0',
     ]);
 
+    // Parsing jumlah_pengajuan untuk menghapus titik (delimiter ribuan)
+    $jumlahPengajuan = (int) str_replace('.', '', $request->jumlah_pengajuan);
+
     $materai = 10000; // Biaya materai tetap
-    $asuransi = $request->jumlah_pengajuan * 0.01; // 1% dari jumlah pengajuan
+    $asuransi = $jumlahPengajuan * 0.01; // 1% dari jumlah pengajuan
     $totalPotongan = $materai + $asuransi;
 
-    $jumlahACC = $request->jumlah_pengajuan - $totalPotongan;
+    $jumlahACC = $jumlahPengajuan - $totalPotongan;
 
     PengajuanKredit::create([
         'nasabah_id' => $request->nasabah_id,
         'product_id' => $request->product_id,
         'tanggal_pengajuan' => $request->tanggal_pengajuan,
         'jaminan' => $request->jaminan,
-        'jumlah_pengajuan' => $request->jumlah_pengajuan,
-        'jumlah_acc' => $jumlahACC > 0 ? $jumlahACC : 0,
+        'jumlah_pengajuan' => $jumlahPengajuan,
+        'jumlah_acc' => max($jumlahACC, 0),
     ]);
 
-    return redirect()->route('dashboard')->with('success', 'Pengajuan kredit berhasil diajukan.');
+    return redirect()->route('pengajuan.dashboard')->with('success', 'Pengajuan kredit berhasil diajukan.');
 }
 
-    
 
-    public function show($id)
+    public function edit($id)
     {
-        return response()->json(PengajuanKredit::with(['nasabah', 'product'])->findOrFail($id));
+        $pengajuan = PengajuanKredit::findOrFail($id);
+        $nasabahs = Nasabah::all();
+        $products = Product::all();
+        return view('pengajuan.edit', compact('pengajuan', 'nasabahs', 'products'));
+
     }
 
     public function update(Request $request, $id)
-    {
-        $pengajuan = PengajuanKredit::findOrFail($id);
-        $pengajuan->update($request->all());
-        return response()->json($pengajuan);
-    }
-
-    public function destroy($id)
-    {
-        PengajuanKredit::destroy($id);
-        return response()->json(null, 204);
-    }
-
-    public function create()
-    {
-        $nasabah = Nasabah::all();
-        $products = Product::all();
-        return view('pengajuan_kredit.create', compact('nasabah', 'products'));
-    }
-
-    public function list()
-{
-    $pengajuanKredits = PengajuanKredit::with(['nasabah', 'product'])->get();
-    return view('pengajuan_kredit.index', compact('pengajuanKredits'));
-}
-
-public function editFrontend($id)
-{
-    $pengajuan = PengajuanKredit::findOrFail($id);
-    return view('pengajuan_kredit.edit', compact('pengajuan'));
-}
-
-public function updateFrontend(Request $request, $id)
 {
     $pengajuan = PengajuanKredit::findOrFail($id);
 
     $request->validate([
-        'status' => 'required|string',
-        'persetujuan' => 'nullable|string',
+        'tanggal_pengajuan' => 'required|date',
+        'product_id' => 'required|exists:products,id',
+        'jaminan' => 'required|string|max:255',
+        'jumlah_pengajuan' => 'required|string|min:0',
+    ]);
+
+    // Parsing jumlah_pengajuan untuk menghapus delimiter ribuan
+    $jumlahPengajuan = (int) str_replace('.', '', $request->jumlah_pengajuan);
+
+    $materai = 10000; // Biaya materai tetap
+    $asuransi = $jumlahPengajuan * 0.01; // 1% dari jumlah pengajuan
+    $jumlahACC = $jumlahPengajuan - $materai - $asuransi;
+
+    $pengajuan->update([
+        'tanggal_pengajuan' => $request->tanggal_pengajuan,
+        'product_id' => $request->product_id,
+        'jaminan' => $request->jaminan,
+        'jumlah_pengajuan' => $jumlahPengajuan,
+        'jumlah_acc' => max($jumlahACC, 0),
+    ]);
+
+    return redirect()->route('pengajuan.dashboard')->with('success', 'Pengajuan berhasil diperbarui.');
+}
+
+
+    public function destroy($id)
+    {
+        $pengajuan = PengajuanKredit::findOrFail($id);
+        $pengajuan->delete();
+
+        return redirect()->route('pengajuan.dashboard')->with('success', 'Pengajuan kredit berhasil dihapus.');
+    }
+
+    public function updateStatus(Request $request, $id)
+{
+    $pengajuan = PengajuanKredit::findOrFail($id);
+
+    $request->validate([
+        'status' => 'required|string|in:approved,rejected',
     ]);
 
     $pengajuan->update([
         'status' => $request->status,
-        'persetujuan' => $request->persetujuan,
     ]);
 
-    return redirect()->route('daftar.pengajuan')->with('success', 'Pengajuan kredit berhasil diperbarui.');
+    return redirect()->route('pengajuan.dashboard')->with('success', 'Status pengajuan berhasil diperbarui.');
 }
 
-public function dashboard()
+public function createWithNasabah($nasabah_id)
 {
-
+    $nasabah = Nasabah::findOrFail($nasabah_id);
+    $products = Product::all();
     $user = auth()->user();
-    $pengajuan = PengajuanKredit::with(['nasabah', 'product'])->get();
-    return view('pengajuan.dashboard', compact('pengajuan', 'user'));
-}
 
+    return view('pengajuan.create', compact('nasabah', 'products', 'user'));
+}
 
 
 }
