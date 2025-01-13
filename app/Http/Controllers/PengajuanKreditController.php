@@ -38,9 +38,8 @@ class PengajuanKreditController extends Controller
     // Parsing jumlah_pengajuan untuk menghapus titik (delimiter ribuan)
     $jumlahPengajuan = (int) str_replace('.', '', $request->jumlah_pengajuan);
 
-    $materai = 10000; // Biaya materai tetap
-    $asuransi = $jumlahPengajuan * 0.01; // 1% dari jumlah pengajuan
-    $totalPotongan = $materai + $asuransi;
+    $asuransi = $jumlahPengajuan * 0.18;
+    $totalPotongan = $asuransi;
 
     $jumlahACC = $jumlahPengajuan - $totalPotongan;
 
@@ -80,9 +79,10 @@ class PengajuanKreditController extends Controller
     // Parsing jumlah_pengajuan untuk menghapus delimiter ribuan
     $jumlahPengajuan = (int) str_replace('.', '', $request->jumlah_pengajuan);
 
-    $materai = 10000; // Biaya materai tetap
-    $asuransi = $jumlahPengajuan * 0.01; // 1% dari jumlah pengajuan
-    $jumlahACC = $jumlahPengajuan - $materai - $asuransi;
+    $asuransi = $jumlahPengajuan * 0.18;
+    $totalPotongan = $asuransi;
+
+    $jumlahACC = $jumlahPengajuan - $totalPotongan;
 
     $pengajuan->update([
         'tanggal_pengajuan' => $request->tanggal_pengajuan,

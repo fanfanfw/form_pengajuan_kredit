@@ -1,46 +1,3 @@
-{{-- @extends('main')
-@section('container')
-<div class="container mt-5">
-    <h2>Buat Pengajuan Kredit</h2>
-    <form action="{{ route('pengajuan.store') }}" method="POST">
-        @csrf
-        <input type="hidden" name="nasabah_id" value="{{ $nasabah->id }}">
-        
-        <div class="mb-3">
-            <label for="nama_nasabah" class="form-label">Nama Nasabah</label>
-            <input type="text" class="form-control" id="nama_nasabah" value="{{ $nasabah->nama }}" disabled>
-        </div>
-
-        <div class="mb-3">
-            <label for="product_id" class="form-label">Pilih Produk</label>
-            <select name="product_id" id="product_id" class="form-control" required>
-                @foreach ($products as $product)
-                    <option value="{{ $product->id }}">{{ $product->name }}</option>
-                @endforeach
-            </select>
-        </div>
-
-        <div class="mb-3">
-            <label for="tanggal_pengajuan" class="form-label">Tanggal Pengajuan</label>
-            <input type="date" name="tanggal_pengajuan" class="form-control" id="tanggal_pengajuan" required>
-        </div>
-
-        <div class="mb-3">
-            <label for="jaminan" class="form-label">Jaminan</label>
-            <input type="text" name="jaminan" class="form-control" id="jaminan" placeholder="Masukkan Jaminan" required>
-        </div>
-
-        <div class="mb-3">
-            <label for="jumlah_pengajuan" class="form-label">Jumlah Pengajuan</label>
-            <input type="number" name="jumlah_pengajuan" class="form-control" id="jumlah_pengajuan" placeholder="Masukkan Jumlah Pengajuan" required>
-        </div>
-
-        <button type="submit" class="btn btn-primary">Ajukan Kredit</button>
-    </form>
-</div>
-@endsection --}}
-
-
 @extends('main')
 
 @section('container')
@@ -133,11 +90,9 @@
         const jumlahPengajuanInput = document.getElementById('jumlah_pengajuan');
         const jumlahAccInput = document.getElementById('jumlah_acc');
 
-        // Parse value (remove dots for calculation)
         const jumlahPengajuan = parseInt(jumlahPengajuanInput.value.replace(/\./g, '') || 0);
-        const materai = 10000; // Biaya materai tetap
-        const asuransi = jumlahPengajuan * 0.01; // 1% dari jumlah pengajuan
-        const totalPotongan = materai + asuransi;
+        const asuransi = jumlahPengajuan * 0.18;
+        const totalPotongan = asuransi;
 
         const jumlahAcc = jumlahPengajuan - totalPotongan;
 

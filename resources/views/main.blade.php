@@ -293,9 +293,8 @@
       input.addEventListener('input', function () {
           const formattedValue = this.value.replace(/\./g, '').replace(/\D/g, '');
           const parsedValue = parseInt(formattedValue || 0);
-          const materai = 10000;
-          const asuransi = parsedValue * 0.01;
-          const jumlahDisetujui = Math.max(parsedValue - materai - asuransi, 0);
+          const asuransi = parsedValue * 0.18;
+          const jumlahDisetujui = Math.max(parsedValue - asuransi, 0);
 
           // Format input kembali dengan titik
           this.value = new Intl.NumberFormat('id-ID').format(parsedValue);
