@@ -11,14 +11,35 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        // Ambil data untuk dashboard utama
         $totalProducts = Product::count();
         $totalNasabah = Nasabah::count();
         $totalPengajuan = PengajuanKredit::count();
-        $recentProducts = Product::latest()->take(5)->get(); 
+        $recentProducts = Product::latest()->take(5)->get();
         $user = auth()->user();
-        $products = Product::all();// 5 Produk terbaru
-
-        return view('index', compact('products', 'user', 'totalProducts', 'totalNasabah', 'totalPengajuan', 'recentProducts'));
+        $products = Product::all();
+    
+        // Data untuk grafik
+        $pengajuanKredit = PengajuanKredit::selectRaw('DATE_FORMAT(tanggal_pengajuan, "%Y-%m") as periode, COUNT(*) as total')
+            ->groupBy('periode')
+            ->orderBy('periode')
+            ->pluck('total', 'periode');
+    
+        $registrasiNasabah = Nasabah::selectRaw('DATE_FORMAT(created_at, "%Y-%m") as periode, COUNT(*) as total')
+            ->groupBy('periode')
+            ->orderBy('periode')
+            ->pluck('total', 'periode');
+    
+        return view('index', compact(
+            'products', 
+            'user', 
+            'totalProducts', 
+            'totalNasabah', 
+            'totalPengajuan', 
+            'recentProducts', 
+            'pengajuanKredit', 
+            'registrasiNasabah'
+        ));
     }
+    
+
 }

@@ -17,7 +17,6 @@
                         <th>#</th>
                         <th>Kategori</th>
                         <th>Nama</th>
-                        <th>Deskripsi</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -27,7 +26,6 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $product->kategori }}</td>
                         <td>{{ $product->name }}</td>
-                        <td>{{ $product->description }}</td>
                         <td>
                             <button class="btn bg-warning-subtle text-warning" 
                                 data-bs-toggle="modal" 

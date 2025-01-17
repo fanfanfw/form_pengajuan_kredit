@@ -14,12 +14,12 @@
                         <input type="text" name="name" class="form-control" id="name" placeholder="Masukkan nama produk" required>
                     </div>
                     <div class="mb-3">
-                        <label for="description" class="form-label">Deskripsi</label>
-                        <textarea name="description" class="form-control" id="description" rows="3" placeholder="Masukkan deskripsi produk" required></textarea>
-                    </div>
-                    <div class="mb-3">
                         <label for="kategori" class="form-label">Kategori</label>
-                        <input type="text" name="kategori" class="form-control" id="kategori" placeholder="Masukkan kategori produk" required>
+                        <select name="kategori" id="kategori" class="form-control" required>
+                            <option value="Kredit" selected>Kredit</option>
+                            <option value="Tabungan">Tabungan</option>
+                            <option value="Deposito">Deposito</option>
+                        </select>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>

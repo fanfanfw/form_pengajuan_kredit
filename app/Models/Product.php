@@ -9,7 +9,7 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'description', 'kategori'];
+    protected $fillable = ['name', 'kategori'];
     protected $table = 'products';
 
     public function pengajuanKredit()

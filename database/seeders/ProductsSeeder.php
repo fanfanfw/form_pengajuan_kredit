@@ -10,39 +10,36 @@ class ProductsSeeder extends Seeder
     public function run()
     {
         Product::create([
-            'name' => 'Simanis',
-            'description' => 'Pinjaman bunga rendah',
+            'name' => 'ajb',
+            'kategori' => 'Kredit'
+        ]);
+
+        Product::create([
+            'name' => 'shm',
+        ]);
+
+        Product::create([
+            'name' => 'bedas',
+        ]);
+
+        Product::create([
+            'name' => 'serbaguna',
             'kategori' => 'Tabungan'
         ]);
 
         Product::create([
-            'name' => 'Serbaguna',
-            'description' => 'Pinjaman untuk kebutuhan umu',
-            'kategori' => 'Kredit Pintar'
-        ]);
-
-        Product::create([
-            'name' => 'SiLambat',
-            'description' => 'Pinjaman untuk kebutuhan besar tapi lambat',
-            'kategori' => 'Kredit Murah'
-        ]);
-
-        Product::create([
-            'name' => 'SiCepat',
-            'description' => 'Pinjaman untuk kebutuhan kecil dengan cepat',
+            'name' => 'simple',
             'kategori' => 'Tabungan'
         ]);
 
         Product::create([
-            'name' => 'Deposito',
-            'description' => 'Menyimpan uang dengan waktu tertentu dan bunga besar',
+            'name' => 'giro',
             'kategori' => 'Tabungan'
         ]);
 
         Product::create([
-            'name' => 'Tabungan',
-            'description' => 'Tabungan masa masa depan',
-            'kategori' => 'Kredit Pintar'
+            'name' => 'dina',
+            'kategori' => 'Deposito'
         ]);
     }
 }

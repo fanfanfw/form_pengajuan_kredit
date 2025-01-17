@@ -2,6 +2,7 @@
 <html lang="en" dir="ltr" data-bs-theme="light" data-color-theme="Blue_Theme" data-layout="vertical">
 
 <head>
+  
   <!-- Required meta tags -->
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -13,7 +14,7 @@
   <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}" />
   <!-- Owl Carousel  -->
   <link rel="stylesheet" href="{{ asset('assets/libs/owl.carousel/dist/assets/owl.carousel.min.css') }}" />
-
+ 
   <link rel="stylesheet" href="{{ asset('assets/libs/sweetalert2/dist/sweetalert2.min.css') }}">
 
   <!-- DataTables CSS -->
@@ -36,6 +37,14 @@
 
 .dataTables_wrapper .dataTables_filter {
     margin-left: 15px; /* Tambahkan jarak kiri */
+}
+
+.sidebar-item.active > a {
+    background-color: #e0f7fa; /* Warna latar aktif */
+    color: #00796b; /* Warna teks aktif */
+}
+.sidebar-item.active > a i {
+    color: #00796b; /* Warna ikon aktif */
 }
 
   </style>
@@ -260,6 +269,8 @@
 <script src="{{ asset('assets/js/datatable/datatable.init.js') }}"></script>
 <script src="{{ asset('assets/js/datatable/datatable-advanced.init.js') }}"></script>
 <script src="{{ asset('assets/js/plugins/bootstrap-validation-init.js') }}"></script>
+<script src="{{ asset('assets/js/dashboards/dashboard5.js') }}"></script>
+<script src="{{ asset('assets/llibs/owl.carousel/distowl.carousel.min.js') }}"></script>
 
 
 <script>
@@ -305,6 +316,84 @@
       });
   });
 </script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        @isset($pengajuanKredit)
+        const pengajuanKredit = @json($pengajuanKredit);
+        const registrasiNasabah = @json($registrasiNasabah);
+
+        // Labels (tanggal)
+        const labels = Object.keys(pengajuanKredit);
+
+        // Data pengajuan kredit
+        const dataPengajuan = Object.values(pengajuanKredit);
+
+        // Data registrasi nasabah
+        const dataRegistrasi = labels.map(label => registrasiNasabah[label] || 0);
+
+        // Konfigurasi ApexCharts
+        const options = {
+            chart: {
+                type: 'line',
+                height: 350,
+                toolbar: {
+                    show: false
+                }
+            },
+            series: [
+                {
+                    name: 'Pengajuan Kredit',
+                    data: dataPengajuan
+                },
+                {
+                    name: 'Registrasi Nasabah',
+                    data: dataRegistrasi
+                }
+            ],
+            xaxis: {
+                categories: labels,
+                title: {
+                    text: 'Periode (YYYY-MM)'
+                }
+            },
+            yaxis: {
+                title: {
+                    text: 'Jumlah'
+                },
+                min: 0
+            },
+            stroke: {
+                curve: 'smooth'
+            },
+            tooltip: {
+                shared: true,
+                intersect: false
+            },
+            colors: ['#FF4560', '#008FFB']
+        };
+
+        const chart = new ApexCharts(document.querySelector("#grafikPengajuanNasabah"), options);
+        chart.render();
+        @endisset
+    });
+</script>
+<script>
+  $(document).ready(function () {
+      $(".owl-carousel").owlCarousel({
+          loop: true, // Mengaktifkan looping
+          margin: 10, // Margin antar item
+          nav: true, // Tombol navigasi
+          dots: true, // Tampilkan indikator dot
+          responsive: {
+              0: { items: 1 }, // Layar kecil: 1 item
+              600: { items: 3 }, // Layar sedang: 3 item
+              1000: { items: 5 } // Layar besar: 5 item
+          }
+      });
+  });
+</script>
+
 </body>
 
 </html>

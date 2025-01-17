@@ -24,13 +24,11 @@ public function store(Request $request)
 {
     $request->validate([
         'name' => 'required|string|max:255',
-        'description' => 'nullable|string',
-        'kategori' => 'required|string|max:255'
+        'kategori' => 'required'
     ]);
 
     Product::create([
         'name' => $request->name,
-        'description' => $request->description,
         'kategori' => $request->kategori
     ]);
 
@@ -46,14 +44,12 @@ public function store(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'kategori' => 'required|string|max:255'
+            'kategori' => 'required'
         ]);
 
         $product = Product::findOrFail($id);
         $product->update([
             'name' => $request->name,
-            'description' => $request->description,
             'kategori' => $request->kategori
         ]);
 

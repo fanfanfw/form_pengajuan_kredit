@@ -17,12 +17,12 @@
                         <input type="text" name="name" class="form-control" id="name-{{ $product->id }}" value="{{ $product->name }}" required>
                     </div>
                     <div class="mb-3">
-                        <label for="description-{{ $product->id }}" class="form-label">Deskripsi</label>
-                        <textarea name="description" class="form-control" id="description-{{ $product->id }}" rows="3" required>{{ $product->description }}</textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label for="kategori" class="form-label">Kategori</label>
-                        <input type="text" name="kategori" class="form-control" id="kategori" placeholder="Masukkan kategori produk" required>
+                        <label for="kategori-{{ $product->id }}" class="form-label">Kategori</label>
+                        <select name="kategori" id="kategori-{{ $product->id }}" class="form-control" required>
+                            <option value="kredit" {{ $product->kategori == 'kredit' ? 'selected' : '' }}>Kredit</option>
+                            <option value="tabungan" {{ $product->kategori == 'tabungan' ? 'selected' : '' }}>Tabungan</option>
+                            <option value="deposito" {{ $product->kategori == 'deposito' ? 'selected' : '' }}>Deposito</option>
+                        </select>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
@@ -36,6 +36,3 @@
     </div>
 </div>
 @endforeach
-
-
-
