@@ -48,24 +48,31 @@
 }
 
 .bi-checking-container {
-  margin-right: 100px; /* Tambahkan jarak antar elemen */
-  display: flex;      /* Pastikan elemen tersusun horizontal */
-  align-items: center; /* Agar sejajar secara vertikal */
+  margin-right: 100px; /* Sesuaikan jarak antar elemen */
 }
 
-.bi-checking-container .form-check {
-  margin-right: 15px; /* Berikan jarak antar pilihan Ya dan Tidak */
+.bi-checking-wrapper {
+  display: flex;
+  align-items: center;
 }
 
-.bi-checking-container label {
-  font-weight: bold; /* Agar label lebih terlihat */
+.bi-logo {
+  height: 24px; /* Tinggi logo */
+  width: 24px; /* Lebar logo */
+  object-fit: contain;
 }
 
-.bi-checking-container .bi-logo {
-  width: 24px; /* Atur ukuran logo sesuai kebutuhan */
-  height: 24px;
-  margin-right: 8px; /* Jarak antara logo dan teks */
+.bi-checking-wrapper span {
+  font-size: 17px; /* Ukuran teks */
+  vertical-align: middle;
 }
+
+.form-check-inline {
+  margin-left: 5px; /* Jarak antara radio button dan teks */
+  margin-right: 5px;
+}
+
+
 
 
   </style>
