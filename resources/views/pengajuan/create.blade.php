@@ -85,35 +85,4 @@
     </div>
 </div>
 
-<script>
-    function calculateJumlahDisetujui() {
-        const jumlahPengajuanInput = document.getElementById('jumlah_pengajuan');
-        const jumlahAccInput = document.getElementById('jumlah_acc');
-
-        const jumlahPengajuan = parseInt(jumlahPengajuanInput.value.replace(/\./g, '') || 0);
-        const asuransi = jumlahPengajuan * 0.18;
-        const totalPotongan = asuransi;
-
-        const jumlahAcc = jumlahPengajuan - totalPotongan;
-
-        // Update input values with formatted numbers
-        jumlahAccInput.value = formatCurrency(jumlahAcc > 0 ? jumlahAcc : 0);
-    }
-
-    function formatCurrency(value) {
-        // Convert number to string with thousand separators
-        return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-    }
-
-    document.querySelectorAll('.currency-input').forEach(input => {
-        input.addEventListener('input', (e) => {
-            // Remove non-digit characters
-            let value = e.target.value.replace(/\D/g, '');
-
-            // Format as currency with thousand separators
-            e.target.value = formatCurrency(value);
-        });
-    });
-</script>
-
 @endsection
