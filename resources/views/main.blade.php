@@ -47,6 +47,27 @@
     color: #00796b; /* Warna ikon aktif */
 }
 
+.bi-checking-container {
+  margin-right: 100px; /* Tambahkan jarak antar elemen */
+  display: flex;      /* Pastikan elemen tersusun horizontal */
+  align-items: center; /* Agar sejajar secara vertikal */
+}
+
+.bi-checking-container .form-check {
+  margin-right: 15px; /* Berikan jarak antar pilihan Ya dan Tidak */
+}
+
+.bi-checking-container label {
+  font-weight: bold; /* Agar label lebih terlihat */
+}
+
+.bi-checking-container .bi-logo {
+  width: 24px; /* Atur ukuran logo sesuai kebutuhan */
+  height: 24px;
+  margin-right: 8px; /* Jarak antara logo dan teks */
+}
+
+
   </style>
 </head>
 
@@ -409,6 +430,21 @@
         @endisset
     });
 </script>
+
+<script>
+function handleBICheckingSelection(selectedOption) {
+  const yesCheckbox = document.getElementById('biCheckingYes');
+  const noCheckbox = document.getElementById('biCheckingNo');
+
+  // Pastikan hanya satu opsi yang dapat dipilih
+  if (selectedOption.value === 'yes') {
+    noCheckbox.checked = false;
+  } else if (selectedOption.value === 'no') {
+    yesCheckbox.checked = false;
+  }
+}
+</script>
+
 <script>
   $(document).ready(function () {
       $(".owl-carousel").owlCarousel({

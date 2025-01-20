@@ -27,6 +27,38 @@
               <i class="ti ti-align-justified fs-7"></i>
             </a>
             <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-center">
+
+              {{-- tambahkan checkbox bi checking disini --}}
+              
+              <li class="nav-item nav-icon-hover-bg rounded-circle bi-checking-container">
+                <div class="d-flex align-items-center">
+                  <!-- Tambahkan logo BI -->
+                  <img src="{{ asset('assets/images/logos/bi-logo.png') }}" alt="Logo BI" class="bi-logo me-2">
+                  <!-- Teks dan radio buttons -->
+                  <label class="form-check-label me-2" for="biCheckingYes">BI Checking:</label>
+                  <div class="form-check form-check-inline">
+                    <input 
+                      class="form-check-input" 
+                      type="radio" 
+                      name="biChecking" 
+                      id="biCheckingYes" 
+                      value="yes" 
+                      onchange="handleBICheckingSelection(this)" />
+                    <label class="form-check-label" for="biCheckingYes">Ya</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input 
+                      class="form-check-input" 
+                      type="radio" 
+                      name="biChecking" 
+                      id="biCheckingNo" 
+                      value="no" 
+                      onchange="handleBICheckingSelection(this)" />
+                    <label class="form-check-label" for="biCheckingNo">Tidak</label>
+                  </div>
+                </div>
+              </li>
+              
               <li class="nav-item nav-icon-hover-bg rounded-circle">
                 <a class="nav-link moon dark-layout" href="javascript:void(0)">
                   <i class="ti ti-moon moon"></i>
@@ -35,7 +67,6 @@
                   <i class="ti ti-sun sun"></i>
                 </a>
               </li>
-              
               <!-- ------------------------------- -->
               <!-- start profile Dropdown -->
               <!-- ------------------------------- -->
