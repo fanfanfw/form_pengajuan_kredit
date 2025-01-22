@@ -1,5 +1,5 @@
 <aside class="left-sidebar with-vertical">
-    <div style="position: relative; height: 100%;">
+    <div class="sidebar-container d-flex flex-column" style="height: 100%;">
         <!-- Brand Logo -->
         <div class="brand-logo d-flex align-items-center justify-content-between">
             <a href="{{ route('dashboard') }}" class="text-nowrap logo-img">
@@ -15,7 +15,7 @@
         </div>
 
         <!-- Sidebar Navigation -->
-        <nav class="sidebar-nav scroll-sidebar" data-simplebar>
+        <nav class="sidebar-nav scroll-sidebar flex-grow-1" data-simplebar>
             <ul id="sidebarnav">
                 <li class="sidebar-item {{ Route::is('dashboard') ? 'active' : '' }}">
                     <a class="sidebar-link" href="{{ route('dashboard') }}" aria-expanded="false">
@@ -43,5 +43,10 @@
                 </li>
             </ul>
         </nav>
+
+        <!-- Sidebar Footer -->
+        <div class="sidebar-footer text-center py-3">
+            <p class="mb-0">&copy; design by dhea</p>
+        </div>
     </div>
 </aside>

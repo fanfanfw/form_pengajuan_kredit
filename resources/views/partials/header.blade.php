@@ -44,37 +44,41 @@
 
               {{-- tambahkan checkbox bi checking disini --}}
               
-              <li class="nav-item nav-icon-hover-bg rounded-circle bi-checking-container">
+              <li class="nav-item dropdown bi-checking-container">
                 @if (Route::is('pengajuan.dashboard'))
-                <div class="d-flex align-items-center bi-checking-wrapper">
-                    <!-- Logo BI -->
+                <a class="nav-link dropdown-toggle" href="#" id="biCheckingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="{{ asset('assets/images/logos/bi-logo.png') }}" alt="Logo BI" class="bi-logo">
-                    <!-- Teks BI Checking -->
-                    <span class="ms-2 me-3">BI Checking:</span>
-                    <!-- Radio buttons -->
-                    <div class="form-check form-check-inline">
-                        <input 
-                          class="form-check-input" 
-                          type="radio" 
-                          name="biChecking" 
-                          id="biCheckingYes" 
-                          value="yes" 
-                          onchange="handleBICheckingSelection(this)" />
-                        <label class="form-check-label" for="biCheckingYes">Ya</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input 
-                          class="form-check-input" 
-                          type="radio" 
-                          name="biChecking" 
-                          id="biCheckingNo" 
-                          value="no" 
-                          onchange="handleBICheckingSelection(this)" />
-                        <label class="form-check-label" for="biCheckingNo">Tidak</label>
-                    </div>
-                </div>
+                    <span>BI Checking</span>
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="biCheckingDropdown">
+                    <li class="dropdown-item">
+                        <div class="form-check">
+                            <input 
+                                class="form-check-input" 
+                                type="radio" 
+                                name="biChecking" 
+                                id="biCheckingYes" 
+                                value="yes" 
+                                onchange="handleBICheckingSelection(this)">
+                            <label class="form-check-label" for="biCheckingYes">Ya</label>
+                        </div>
+                    </li>
+                    <li class="dropdown-item">
+                        <div class="form-check">
+                            <input 
+                                class="form-check-input" 
+                                type="radio" 
+                                name="biChecking" 
+                                id="biCheckingNo" 
+                                value="no" 
+                                onchange="handleBICheckingSelection(this)">
+                            <label class="form-check-label" for="biCheckingNo">Tidak</label>
+                        </div>
+                    </li>
+                </ul>
                 @endif
             </li>
+            
             
               
               

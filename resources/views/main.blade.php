@@ -48,25 +48,24 @@
 }
 
 .bi-checking-container {
-  margin-right: 100px; /* Sesuaikan jarak antar elemen */
-  margin-left: 150px;
+    margin-left: 20px;
 }
 
-.bi-checking-wrapper {
-  display: flex;
-  align-items: center;
+.bi-checking-container .bi-logo {
+    width: 20px;
+    height: auto;
+    margin-right: 8px;
 }
 
-.bi-logo {
-  height: 24px; /* Tinggi logo */
-  width: 24px; /* Lebar logo */
-  object-fit: contain;
+.bi-checking-container .dropdown-menu {
+    min-width: 150px;
+    padding: 10px;
 }
 
-.bi-checking-wrapper span {
-  font-size: 17px; /* Ukuran teks */
-  vertical-align: middle;
+.bi-checking-container .form-check {
+    margin-bottom: 5px;
 }
+
 
 .form-check-inline {
   margin-left: 5px; /* Jarak antara radio button dan teks */
@@ -119,6 +118,30 @@
         transform: translateX(-100%); /* Bergerak ke kiri */
     }
 }
+
+/* Pastikan container sidebar menggunakan flexbox */
+.sidebar-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Memastikan sidebar memenuhi tinggi layar */
+}
+
+/* Membuat navigasi sidebar fleksibel */
+.sidebar-nav {
+    flex-grow: 1; /* Navigasi akan tumbuh memenuhi ruang yang tersedia */
+}
+
+/* Gaya untuk footer */
+.sidebar-footer {
+    background-color: #f8f9fa; /* Warna latar footer */
+    font-size: 12px;
+    color: #6c757d; /* Warna teks footer */
+    text-align: center;
+    padding: 10px 0; /* Padding vertikal */
+    border-top: 1px solid #e9ecef; /* Garis atas footer */
+}
+
+
 
   </style>
 </head>
