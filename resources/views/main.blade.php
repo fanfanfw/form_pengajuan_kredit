@@ -49,6 +49,7 @@
 
 .bi-checking-container {
   margin-right: 100px; /* Sesuaikan jarak antar elemen */
+  margin-left: 150px;
 }
 
 .bi-checking-wrapper {
@@ -73,7 +74,51 @@
 }
 
 
+.logo-top {
+    margin-bottom: 20px; /* Atur jarak antara logo dan menu */
+}
 
+.logo-top img {
+    width: 80%; /* Atur ukuran logo */
+    max-width: 200px; /* Maksimal ukuran logo */
+    object-fit: contain; /* Pastikan logo proporsional */
+}
+
+
+.sidebar-hidden .logo-bottom {
+    display: none;
+}
+
+
+.marquee-container {
+    overflow: hidden; /* Menyembunyikan teks di luar batas */
+    width: 100%; /* Atur sesuai kebutuhan */
+    white-space: nowrap;
+    position: relative;
+}
+
+.marquee {
+    display: inline-block;
+    white-space: nowrap; /* Pastikan teks tidak break */
+    animation: marquee 20s linear infinite; /* Loop animasi terus menerus */
+}
+
+.marquee span {
+    display: inline-block;
+    padding-right: 50px; /* Jarak antar teks */
+    font-size: 16px;
+    color: #333;
+}
+
+/* Keyframes untuk animasi */
+@keyframes marquee {
+    0% {
+        transform: translateX(100%); /* Mulai dari kanan */
+    }
+    100% {
+        transform: translateX(-100%); /* Bergerak ke kiri */
+    }
+}
 
   </style>
 </head>
@@ -466,6 +511,13 @@ function handleBICheckingSelection(selectedOption) {
           }
       });
   });
+
+  function toggleSidebar() {
+    const sidebar = document.querySelector('.left-sidebar');
+    sidebar.classList.toggle('sidebar-hidden');
+}
+
+
 </script>
 
 </body>
