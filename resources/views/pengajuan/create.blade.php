@@ -73,6 +73,16 @@
 
                     <div class="row">
                         <div class="col-md-6 mb-3">
+                            <label class="form-label" for="jumlah_tenor">Jumlah Tenor</label>
+                            <select name="jumlah_tenor" id="jumlah_tenor" class="form-control" required>
+                                <option value="" selected disabled>Pilih Jumlah Tenor</option>
+                                @for ($i = 1; $i <= 10; $i++)
+                                    <option value="{{ $i }}">{{ $i }} Tahun</option>
+                                @endfor
+                            </select>
+                        </div>
+                    
+                        <div class="col-md-6 mb-3">
                             <label class="form-label" for="jumlah_acc">Jumlah Disetujui</label>
                             <input type="text" class="form-control currency-input" id="jumlah_acc" placeholder="Jumlah Disetujui" readonly>
                         </div>

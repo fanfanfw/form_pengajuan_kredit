@@ -41,5 +41,10 @@ class ProductsSeeder extends Seeder
             'name' => 'dina',
             'kategori' => 'Deposito'
         ]);
+
+        Product::create([
+            'name' => 'Sinarmas Go',
+            'kategori' => 'Kredit'
+        ]);
     }
 }
